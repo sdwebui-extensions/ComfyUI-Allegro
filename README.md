@@ -1,4 +1,4 @@
-## ComfyUI-MagicDance
+## ComfyUI-Allegro
 ComfyUI supports over rhymes-ai/Allegro, which use text prompt to generate short video in relatively high quality, especially comparing to other open source solutions available for now.
 
 ## Installation
