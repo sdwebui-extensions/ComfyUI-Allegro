@@ -20,9 +20,9 @@ Drag the following image into comfyui, or click Load for custom_nodes/ComfyUI-Al
 
 ![](allegro-comfy-example.png)
 
-Results run under comfy based on poses and image provided by MagicDance
+Results run under comfy
 
-<video src="allegro-comfy-example.mp4" width="1280" height="720" controls></video>
+https://github.com/user-attachments/assets/75f90597-7e33-4076-b00f-7ed5d88ea22b
 
 ## Tips
 Only verified that frame=88,width=1280,height=720 is working. Tried 24 frames and the result looks like random mosaics. Also tried width=560, where noisy bars show up along both left and right edges.
