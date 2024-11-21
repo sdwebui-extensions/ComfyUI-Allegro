@@ -1,5 +1,5 @@
 ## ComfyUI-Allegro
-ComfyUI supports over rhymes-ai/Allegro, which use text prompt to generate short video in relatively high quality, especially comparing to other open source solutions available for now.
+ComfyUI supports over rhymes-ai/Allegro, which uses text prompt to generate short video in relatively high quality, especially comparing to other open source solutions available for now.
 
 ## Installation
 
@@ -37,6 +37,6 @@ Verified to work on a single NVidia RTX 3070 card with 8G graphics memory, where
 
 If you have enough graphics memory. You can try use --highvram on comfy start, where the entire pipeline is loaded into GPU directly to spare unnecessary conversion between CPU and GPU.
 
-It is recommend to choose a preview method (inside comfy Manager), so that you can see the progress of step during the long run.
+It is recommend to choose a preview method (inside comfy Manager), so that you can see intermediate result of each step during the long run.
 
 Email zhouli@xiaobing.ai for further question or discussion.
