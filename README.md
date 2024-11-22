@@ -1,5 +1,5 @@
-## ComfyUI-MagicDance
-ComfyUI supports over rhymes-ai/Allegro, which use text prompt to generate short video in relatively high quality, especially comparing to other open source solutions available for now.
+## ComfyUI-Allegro
+ComfyUI supports over rhymes-ai/Allegro, which uses text prompt to generate short video in relatively high quality, especially comparing to other open source solutions available for now.
 
 ## Installation
 
@@ -20,9 +20,9 @@ Drag the following image into comfyui, or click Load for custom_nodes/ComfyUI-Al
 
 ![](allegro-comfy-example.png)
 
-Results run under comfy based on poses and image provided by MagicDance
+Results run under comfy
 
-<video src="allegro-comfy-example.mp4" width="1280" height="720" controls></video>
+https://github.com/user-attachments/assets/75f90597-7e33-4076-b00f-7ed5d88ea22b
 
 ## Tips
 Only verified that frame=88,width=1280,height=720 is working. Tried 24 frames and the result looks like random mosaics. Also tried width=560, where noisy bars show up along both left and right edges.
@@ -37,6 +37,6 @@ Verified to work on a single NVidia RTX 3070 card with 8G graphics memory, where
 
 If you have enough graphics memory. You can try use --highvram on comfy start, where the entire pipeline is loaded into GPU directly to spare unnecessary conversion between CPU and GPU.
 
-It is recommend to choose a preview method (inside comfy Manager), so that you can see the progress of step during the long run.
+It is recommend to choose a preview method (inside comfy Manager), so that you can see intermediate result of each step during the long run.
 
 Email zhouli@xiaobing.ai for further question or discussion.
