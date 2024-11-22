@@ -211,7 +211,7 @@ class AllegroSampler:
             generator = torch.Generator(device).manual_seed(seed),
             latents = latents['samples'].transpose(0, 1).unsqueeze(0) if latents!=None and "samples" in latents and latents["samples"]!=None else None,
             output_type = "latents",
-            callback = lambda s,t,l:callback(s,l[0,:,random.randint(0, l.shape[-3]),:,:].unsqueeze(0),t,steps) if callback else None,
+            callback = lambda s,t,l:callback(s,l[0,:,random.randint(0, l.shape[-3]-1),:,:].unsqueeze(0),t,steps) if callback else None,
             device = device,
         ).video[0]
         
@@ -311,7 +311,7 @@ class AllegroDecoder:
         
         pbar = ProgressBar( (math.floor((latents["samples"].shape[-3] - vae.kernel[0]//4) / (vae.stride[0]//4)) + 1) * (math.floor((latents["samples"].shape[-2] - vae.kernel[1]//8) / (vae.stride[1]//8)) + 1) * (math.floor((latents["samples"].shape[-1] - vae.kernel[2]//8) / (vae.stride[2]//8)) + 1) )
         if args.preview_method != latent_preview.LatentPreviewMethod.NoPreviews:
-            callback = lambda s,t,l:pbar.update_absolute(s, total=t, preview=("JPEG", latent_preview.preview_to_image(l[0,:,random.randint(0,l.shape[-3]),:,:].permute(1,2,0)), args.preview_size))
+            callback = lambda s,t,l:pbar.update_absolute(s, total=t, preview=("JPEG", latent_preview.preview_to_image(l[0,:,random.randint(0,l.shape[-3]-1),:,:].permute(1,2,0)), args.preview_size))
         else:
             callback = lambda s,t,l:pbar.update_absolute(s, total=t)
         images = vae.decode(latents["samples"].unsqueeze(0) / vae.scale_factor, callback=callback).sample
