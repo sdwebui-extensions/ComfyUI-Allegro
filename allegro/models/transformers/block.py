@@ -16,6 +16,10 @@ import torch
 import collections
 import torch.nn.functional as F
 from torch.nn.attention import SDPBackend, sdpa_kernel
+try:
+    from torch.backends.cuda import sdp_kernel
+except:
+    from torch.nn.attention import sdp_kernel
 from diffusers.models.activations import GEGLU, GELU, ApproximateGELU
 from diffusers.models.attention_processor import (
     AttnAddedKVProcessor,
@@ -820,9 +824,9 @@ class AttnProcessor2_0(nn.Module):
         # TODO: add support for attn.scale when we move to Torch 2.1
         if self.attention_mode == 'flash':
                 # assert attention_mask is None, 'flash-attn do not support attention_mask'
-                with sdpa_kernel(SDPBackend.FLASH_ATTENTION):
+                with sdp_kernel(enable_flash=True, enable_math=True, enable_mem_efficient=True, enable_cudnn=True): #sdpa_kernel(SDPBackend.FLASH_ATTENTION):
                     hidden_states = F.scaled_dot_product_attention(
-                        query, key, value, dropout_p=0.0, is_causal=False
+                        query, key, value, attn_mask=attention_mask
                     )
         elif self.attention_mode == 'xformers':
             with sdpa_kernel(SDPBackend.EFFICIENT_ATTENTION):
