@@ -51,10 +51,11 @@ class LoadAllegroModel:
             if os.path.isabs(model_path) and os.path.exists(model_path):
                 modelfullpath = model_path
             else:
-                modelfullpath = os.path.join(script_directory, model_path)
+                modelfullpath = os.path.join(folder_paths.models_dir, "Allegro")
                 if not os.path.exists(modelfullpath):
-                    modelfullpath = os.path.join(script_directory, "models/")
+                    modelfullpath = "/stable-diffusion-cache/models/Allegro"
                     if not os.path.exists(modelfullpath):
+                        modelfullpath = os.path.join(folder_paths.models_dir, "Allegro")
                         from huggingface_hub import snapshot_download
                         snapshot_download("rhymes-ai/Allegro", local_dir=modelfullpath, local_dir_use_symlinks=False)
             transformer_path = os.path.join(modelfullpath, "transformer") if not os.path.exists(transformer_path) else transformer_path
@@ -358,10 +359,11 @@ class LoadAllegroTI2VModel:
             if os.path.isabs(model_path) and os.path.exists(model_path):
                 modelfullpath = model_path
             else:
-                modelfullpath = os.path.join(script_directory, model_path)
+                modelfullpath = os.path.join(folder_paths.models_dir, "Allegro-TI2V")
                 if not os.path.exists(modelfullpath):
-                    modelfullpath = os.path.join(script_directory, "ti2v_models/")
+                    modelfullpath = "/stable-diffusion-cache/models/Allegro-TI2V"
                     if not os.path.exists(modelfullpath):
+                        modelfullpath = os.path.join(folder_paths.models_dir, "Allegro-TI2V")
                         from huggingface_hub import snapshot_download
                         snapshot_download("rhymes-ai/Allegro-TI2V", local_dir=modelfullpath, local_dir_use_symlinks=False)
             transformer_path = os.path.join(modelfullpath, "transformer") if not os.path.exists(transformer_path) else transformer_path
