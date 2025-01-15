@@ -404,15 +404,14 @@ class AllegroAutoencoderKL3D(ModelMixin, ConfigMixin):
                     
                     if num%LOCAL_BS == LOCAL_BS-1 or num == out_n*out_h*out_w-1:                        
                         latent = self.encoder(vae_batch_input)
-                        
+                        if callback != None:
+                            callback(num, out_n*out_h*out_w, latent)
                         if num == out_n*out_h*out_w-1 and num%LOCAL_BS != LOCAL_BS-1:
                             out_latent[num-num%LOCAL_BS:] = latent[:num%LOCAL_BS+1]
                         else:
                             out_latent[num-LOCAL_BS+1:num+1] = latent
                         vae_batch_input = torch.zeros((LOCAL_BS, C, KERNEL[0], KERNEL[1], KERNEL[2]), device=input_imgs.device, dtype=input_imgs.dtype)
                     num+=1
-                    if callback != None:
-                        callback(num, out_n*out_h*out_w, latent)
         
         ## flatten the batched out latent to videos and supress the overlapped parts
         B, C, N, H, W = input_imgs.shape
@@ -478,17 +477,15 @@ class AllegroAutoencoderKL3D(ModelMixin, ConfigMixin):
                     latent_cube = input_latents[:, :, n_start:n_end, h_start:h_end, w_start:w_end]
                     vae_batch_input[num%LOCAL_BS] = latent_cube
                     if num%LOCAL_BS == LOCAL_BS-1 or num == out_n*out_h*out_w-1:
-                        
                         latent = self.decoder(vae_batch_input)
-                        
+                        if callback != None:
+                            callback(num, out_n*out_h*out_w, latent)
                         if num == out_n*out_h*out_w-1 and num%LOCAL_BS != LOCAL_BS-1:
                             decoded_cube[num-num%LOCAL_BS:] = latent[:num%LOCAL_BS+1]
                         else:
                             decoded_cube[num-LOCAL_BS+1:num+1] = latent
                         vae_batch_input = torch.zeros((LOCAL_BS, C, IN_KERNEL[0], IN_KERNEL[1], IN_KERNEL[2]), device=input_latents.device, dtype=input_latents.dtype)
                     num+=1
-                    if callback != None:
-                        callback(num, out_n*out_h*out_w, latent)
         B, C, N, H, W = input_latents.shape
         
         out_video = torch.zeros((B, OUT_C, N*4, H*8, W*8), device=input_latents.device, dtype=input_latents.dtype)

@@ -1,0 +1,542 @@
+{
+  "last_node_id": 13,
+  "last_link_id": 29,
+  "nodes": [
+    {
+      "id": 3,
+      "type": "AllegroTextEncoder",
+      "pos": [
+        194.23924255371094,
+        -76.57672882080078
+      ],
+      "size": [
+        321.4764099121094,
+        183.75372314453125
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pipe",
+          "type": "AllegroPIPE",
+          "link": 23
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            18
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            19
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AllegroTextEncoder"
+      },
+      "widgets_values": [
+        "A spaceship is flying in the outer space, stars are shining in the background, the milky way is in the middle of the background",
+        ""
+      ]
+    },
+    {
+      "id": 5,
+      "type": "AllegroTI2VSampler",
+      "pos": [
+        552.53125,
+        -86.44898986816406
+      ],
+      "size": [
+        306.4808349609375,
+        304.9352111816406
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pipe",
+          "type": "AllegroPIPE",
+          "link": 24
+        },
+        {
+          "name": "ref_latents",
+          "type": "LATENT",
+          "link": 4
+        },
+        {
+          "name": "ref_masks",
+          "type": "MASK",
+          "link": 14
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 18
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 19,
+          "shape": 7
+        },
+        {
+          "name": "frames",
+          "type": "INT",
+          "link": 15,
+          "widget": {
+            "name": "frames"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 16,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 17,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AllegroTI2VSampler"
+      },
+      "widgets_values": [
+        88,
+        720,
+        1280,
+        100,
+        7.5,
+        0,
+        "fixed",
+        true
+      ]
+    },
+    {
+      "id": 8,
+      "type": "LoadImage",
+      "pos": [
+        -145.33970642089844,
+        168.94924926757812
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            28
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "spaceship-flip.png",
+        "image"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "AllegroTI2VEncoder",
+      "pos": [
+        213.10865783691406,
+        176.12246704101562
+      ],
+      "size": [
+        260.3999938964844,
+        234
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pipe",
+          "type": "AllegroPIPE",
+          "link": 26
+        },
+        {
+          "name": "ref_images",
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ref_latents",
+          "type": "LATENT",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "ref_masks",
+          "type": "MASK",
+          "links": [
+            14
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "frames",
+          "type": "INT",
+          "links": [
+            15
+          ],
+          "slot_index": 2
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            16
+          ],
+          "slot_index": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            17
+          ],
+          "slot_index": 4
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AllegroTI2VEncoder"
+      },
+      "widgets_values": [
+        88,
+        "",
+        1,
+        0,
+        "fixed"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "AllegroDecoder",
+      "pos": [
+        570.2052612304688,
+        281.81817626953125
+      ],
+      "size": [
+        254.72157287597656,
+        118.46243286132812
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 8
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 25
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            10
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AllegroDecoder"
+      },
+      "widgets_values": [
+        1
+      ]
+    },
+    {
+      "id": 7,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        896.0352172851562,
+        -83.40831756591797
+      ],
+      "size": [
+        315,
+        310
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 10,
+          "shape": 7
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 8,
+        "loop_count": 0,
+        "filename_prefix": "AnimateDiff",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        }
+      }
+    },
+    {
+      "id": 13,
+      "type": "LoadAllegroTI2VModel",
+      "pos": [
+        -166.63584899902344,
+        -72.7602767944336
+      ],
+      "size": [
+        336,
+        174
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "pipe",
+          "type": "AllegroPIPE",
+          "links": [
+            23,
+            24,
+            26
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "links": [
+            25
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAllegroTI2VModel"
+      },
+      "widgets_values": [
+        "ti2v_models/",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      4,
+      4,
+      0,
+      5,
+      1,
+      "LATENT"
+    ],
+    [
+      8,
+      5,
+      0,
+      6,
+      0,
+      "LATENT"
+    ],
+    [
+      10,
+      6,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ],
+    [
+      14,
+      4,
+      1,
+      5,
+      2,
+      "MASK"
+    ],
+    [
+      15,
+      4,
+      2,
+      5,
+      5,
+      "INT"
+    ],
+    [
+      16,
+      4,
+      3,
+      5,
+      6,
+      "INT"
+    ],
+    [
+      17,
+      4,
+      4,
+      5,
+      7,
+      "INT"
+    ],
+    [
+      18,
+      3,
+      0,
+      5,
+      3,
+      "CONDITIONING"
+    ],
+    [
+      19,
+      3,
+      1,
+      5,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      23,
+      13,
+      0,
+      3,
+      0,
+      "AllegroPIPE"
+    ],
+    [
+      24,
+      13,
+      0,
+      5,
+      0,
+      "AllegroPIPE"
+    ],
+    [
+      25,
+      13,
+      1,
+      6,
+      1,
+      "VAE"
+    ],
+    [
+      26,
+      13,
+      0,
+      4,
+      0,
+      "AllegroPIPE"
+    ],
+    [
+      28,
+      8,
+      0,
+      4,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        212.8896484375,
+        150.47296905517578
+      ]
+    }
+  },
+  "version": 0.4
+}
